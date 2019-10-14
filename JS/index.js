@@ -1,5 +1,6 @@
 (function () {
-    getWeatherInfo();
+    //getWeatherInfo();
+    geocode();
 })();
 
 function getWeatherInfo() {
@@ -19,6 +20,16 @@ function getWeatherInfo() {
 // ^ Function to connect to the Dark Sky API and get weather data.
 
 function geocode() {
-
+    //Base-URL + APIkey + &location= + Address
+    $.ajax("http://www.mapquestapi.com/geocoding/v1/address?key=" + mapQuestKey + "&location=Washington,DC")
+    .done(function(data) {
+        console.log(data);
+    })
+    .fail(function(error) {
+        console.log(error);
+    })
+    .always(function() {
+        console.log("Geocoding call finished!");
+    })
 }
 // ^ Function to connect the MapQuest Geocoding API and get geocoding data.
