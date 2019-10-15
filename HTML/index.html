@@ -11,19 +11,24 @@
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
+    <!-- Navbar - Header | Collapse button | Links | Search bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Weather Vane</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+            <!-- Search bar -->
+            <form class="form-inline">
+                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Enter Address/City/Zip Code" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Get Weather</button>
+            </form>
             <div class="navbar-nav">
-                <a class="nav-item nav-link disabled" href="#">Powered by</a>
-                <a class="nav-item nav-link" href="https://darksky.net/dev">Dark Sky API</a>
-                <a class="nav-item nav-link" href="https://developer.mapquest.com/">MapQuest Geocoding</a>
+                <a class="nav-item nav-link" href="https://darksky.net/forecast/40.7127,-74.0059/us12/en" target="_blank">Powered By Dark Sky</a>
+                <a class="nav-item nav-link" href="https://developer.mapquest.com/" target="_blank">MapQuest Geocoding API</a>
             </div>
         </div>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Enter Zip/Address/City" aria-label="Search">
-            <button class="btn btn-outline-primar my-2 my-sm-0" type="submit">Get Weather</button>
-        </form>
     </nav>
     <!-- Scripts for JQuery, popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>

@@ -1,3 +1,8 @@
 body {
     margin: 0;
 }
+
+#searchInput {
+    width: 250px;
+}
+

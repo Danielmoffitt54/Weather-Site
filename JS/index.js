@@ -5,7 +5,6 @@
 
 function getWeatherInfo() {
     //Base-URL/APIKey?Latitude,Longitude
-
     $.ajax("https://api.darksky.net/forecast/" + darkSkyKey + "/37.8267,-122.4233", { dataType: "jsonp" })
     .done(function(data) {
         console.log(data);
