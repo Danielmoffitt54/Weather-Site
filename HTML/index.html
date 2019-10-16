@@ -20,9 +20,9 @@
         <!-- Links -->
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
             <!-- Search bar -->
-            <form class="form-inline">
-                <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Enter Address/City/Zip Code" aria-label="Search">
-                <button id="submit" class="btn btn-outline-primary my-2 my-sm-0" type="button">Get Weather</button>
+            <form class="form-inline w-100 my-2">
+                <input id="searchBar" class="form-control mr-2 my-1" type="search" placeholder="Enter Address/City/Zip Code" aria-label="Search">
+                <button id="submit" class="btn btn-outline-primary" type="button">Get Weather</button>
             </form>
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="https://darksky.net/forecast/40.7127,-74.0059/us12/en" target="_blank">Powered By Dark Sky</a>
@@ -30,6 +30,25 @@
             </div>
         </div>
     </nav>
+    <!-- Weather Card -->
+    <div class="container">
+        <div class="row">
+            <div id="template" class="col-xs-12 col-lg-4">
+            <!-- <div class="weatherCard">
+                    <button id="remove">X</button>
+                    <h1>Louisville</h1>
+                    <h1>50&#8457</h1>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Location: Louisville</li>
+                        <li class="list-group-item">Current Conditions: Overcast</li>
+                        <li class="list-group-item">High Temp: 75&#8457</li>
+                        <li class="list-group-item">Low Temp: 40&#8457</li>
+                        <li class="list-group-item">Chance of Precipitation: 40%</li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+    </div>
     <!-- Scripts for JQuery, popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
