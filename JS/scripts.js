@@ -27,6 +27,16 @@
     });
     // ^ Hotkey Submit Button Event Handler 
 
+    $(document).on("click", "button#remove", function () {
+        let parentDiv = $(this).parent();
+        // ^ This refers to the element that triggered the event handler.
+
+        let weatherCardContainer = parentDiv.parent();
+        // ^ Get the parent of the clicked button container.
+
+        weatherCardContainer.remove();
+        // ^ Remove the container and all of its contents.
+    });
 })();
 
 function geocode(location) {
@@ -36,29 +46,43 @@ function geocode(location) {
     .done(function(data) {
         console.log(data);
         if (data.results[0].locations.length > 10) {
-            for (var i = 0; i < 10; i++) {
-                let locations = data.results[0].locations[i];
-                let lat = locations.latLng.lat;
-                let lng = locations.latLng.lng;
-                let city = locations.adminArea5;
-                let state = locations.adminArea3;
+            for (var i = 0; i < 9; i++) {
+                let location = data.results[0].locations[i];
+                let lat = location.latLng.lat;
+                let lng = location.latLng.lng;
+                let city = location.adminArea5;
+                let state = location.adminArea3;
+                let country = location.adminArea1;
                 // ^ Get Lat, Lng, city and state from the response
+                console.log("Country: " + country);
 
-                getWeatherInfo(lat, lng, city, state);
-                // ^ Pass the Lat and Long to our getWeatherInfo function.
+                if (country === "US") {
+                    getWeatherInfo(lat, lng, city, state);
+                    // ^ Pass the Lat and Long to our getWeatherInfo function.
+                } else {
+                    getWeatherInfo(lat, lng, city, country);
+                    // ^ Pass the Lat and Long to our getWeatherInfo function.
+                }
             }
             // ^ Iterate through 10 of the results inside location array length.
         } else {
             for (var i = 0; i < data.results[0].locations.length; i++) {
-                let locations = data.results[0].locations[i];
-                let lat = locations.latLng.lat;
-                let lng = locations.latLng.lng;
-                let city = locations.adminArea5;
-                let state = locations.adminArea3;
+                let location = data.results[0].locations[i];
+                let lat = location.latLng.lat;
+                let lng = location.latLng.lng;
+                let city = location.adminArea5;
+                let state = location.adminArea3;
+                let country = location.adminArea1;
                 // ^ Get Lat, Lng, city and state from the response
+                console.log("Country: " + country);
 
-                getWeatherInfo(lat, lng, city, state);
-                // ^ Pass the Lat and Lng to our getWeatherInfo function.
+                if (country === "US") {
+                    getWeatherInfo(lat, lng, city, state);
+                    // ^ Pass the Lat and Long to our getWeatherInfo function.
+                } else {
+                    getWeatherInfo(lat, lng, city, country);
+                    // ^ Pass the Lat and Long to our getWeatherInfo function.
+                }
             }
             // ^ Iterate through results location array length.
         }
@@ -73,23 +97,36 @@ function geocode(location) {
 }
 // ^ Function to connect the MapQuest Geocoding API and get geocoding data.
 
-function getWeatherInfo(latitude, longitude, city, state) {
+function getWeatherInfo(latitude, longitude, city, region) {
     //Base-URL/APIKey?Latitude,Longitude
     $.ajax("https://api.darksky.net/forecast/" + darkSkyKey + "/" + latitude + "," + longitude, { dataType: "jsonp" })
     .done(function(data) {
         console.log(data);
-        let temperature = data.currently.apparentTemperature;
-        // ^ Get the current temperature.
-        let currently = data.currently.summary;
-        // ^ Get the Current Conditions
-        let tempHigh = data.daily.data[0].temperatureHigh;
-        let tempLow = data.daily.data[0].temperatureLow;
-        // ^ Get the High and low temperature for the current day (first element in the data array in the daily object.)
-        let precipiProb = data.currently.precipProbability;
-        // ^ Get precipitation probability.
 
-        createDataCard(city, state, temperature, currently, tempHigh, tempLow, precipiProb)
-        // ^ Pass the city, state, temperature, precipitaion probability, with temeratures high and low, data to createDataCard function.
+        if (city !== "" && region !== "") {
+            let templateHTML = $("#template").html();
+            // ^ Get the HTML from the div with the ID template.
+
+            let temperature = data.currently.temperature;
+            let currently = data.currently.summary;
+            let tempHigh = data.daily.data[0].temperatureHigh;
+            let tempLow = data.daily.data[0].temperatureLow;
+            let precipiProb = data.currently.precipProbability;
+            let humidity = data.currently.humidity;
+            // ^ Get variables from the dark sky data.
+
+            templateHTML = templateHTML.replace("@@city@@", city + ", " + region);
+            templateHTML = templateHTML.replace("@@temperature@@", temperature + "&#8457");
+            templateHTML = templateHTML.replace("@@currently@@", "Currently: " + currently);
+            templateHTML = templateHTML.replace("@@high@@", "High Temp: " + tempHigh + "&#8457");
+            templateHTML = templateHTML.replace("@@low@@", "Low Temp: " + tempLow + "&#8457");
+            templateHTML = templateHTML.replace("@@precipiProb@@", "Precipitaion Probability: " + precipiProb + "%");
+            templateHTML = templateHTML.replace("@@humidity@@", "Humidity: " + humidity);
+            // ^ Replace the string "@@value@@" with the Dark sky data we pass into this function in the HTML.
+
+            $(".row").append(templateHTML);
+            // ^ Add the configured template HTML to our row in the card container.
+        }
     })
     .fail(function(error) {
         console.log(error);
@@ -99,54 +136,3 @@ function getWeatherInfo(latitude, longitude, city, state) {
     });
 }
 // ^ Function to connect to the Dark Sky API and get weather data.
-
-function createDataCard(city, state, temperature, currently, tempHigh, tempLow, precipiProb) {
-    let template = document.getElementById("template");
-    console.log(city);
-    console.log(state);
-
-    if (city.length > 0 && state.length === 2) {
-        var card =  document.createElement("div");
-        card.classList.add("weatherCard");
-        
-        var button = document.createElement("button");
-        button.id = "remove";
-        button.innerHTML = "X";
-        card.appendChild(button);
-
-        var locationDisplay = document.createElement("h1");
-        locationDisplay.innerHTML = city + ", " + state;
-        card.appendChild(locationDisplay);
-
-        if (temperature !== "") {
-            var tempDisplay = document.createElement("h1");
-            tempDisplay.innerHTML = temperature + "&#8457";
-            card.appendChild(tempDisplay);
-        }
-
-        var ul = document.createElement("ul");
-        ul.classList.add("list-group","list-group-flush");
-        
-        for (var i = 0; i < 4; i++) {
-            var li = document.createElement("li");
-            li.classList.add("list-group-item");
-
-            switch (i) {
-                case 0:
-                    li.innerHTML = "Current Conditions: " + currently;
-                    break;
-                case 1:
-                    li.innerHTML = "High Temp: " + tempHigh + "&#8457";
-                    break;
-                case 2:
-                    li.innerHTML = "Low Temp: " + tempLow + "&#8457";
-                    break;
-                default:
-                    li.innerHTML = "Chance of Precipitation: " + precipiProb + "%";
-            }
-            ul.appendChild(li);
-        }
-        card.appendChild(ul);
-        template.appendChild(card);
-    }
-}

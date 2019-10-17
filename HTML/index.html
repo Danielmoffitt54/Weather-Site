@@ -33,19 +33,22 @@
     <!-- Weather Card -->
     <div class="container">
         <div class="row">
-            <div id="template" class="col-xs-12 col-lg-4">
-            <!-- <div class="weatherCard">
-                    <button id="remove">X</button>
-                    <h1>Louisville</h1>
-                    <h1>50&#8457</h1>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Location: Louisville</li>
-                        <li class="list-group-item">Current Conditions: Overcast</li>
-                        <li class="list-group-item">High Temp: 75&#8457</li>
-                        <li class="list-group-item">Low Temp: 40&#8457</li>
-                        <li class="list-group-item">Chance of Precipitation: 40%</li>
-                    </ul>
-                </div> -->
+        </div>
+    </div>
+    <!-- Template -->
+    <div id="template" style="display: none">
+        <div class="col-xs-12 col-lg-4">              
+            <div class="weatherCard">
+                <button id="remove" type="button">X</button>
+                <h1>@@city@@</h1>
+                <h1>@@temperature@@</h1>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@@currently@@</li>
+                    <li class="list-group-item">@@high@@</li>
+                    <li class="list-group-item">@@low@@</li>
+                    <li class="list-group-item">@@precipiProb@@</li>
+                    <li class="list-group-item">@@humidity@@</li>
+                </ul>
             </div>
         </div>
     </div>
