@@ -45,9 +45,4 @@ h1 {
     #searchBar {
         width: 65%;
     } 
-
-    #template {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
 }
