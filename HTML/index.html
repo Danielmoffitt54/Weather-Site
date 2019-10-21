@@ -5,11 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather Vane</title>
+    <!-- Link for Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Link to main.css -->
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
+    <!-- Navbar - Header | Collapse button | Links | Search bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Weather Vane</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+            <!-- Search bar -->
+            <form class="form-inline w-100 my-2">
+                <input id="searchBar" class="form-control mr-2 my-1" type="search" placeholder="Enter Address/City/Zip Code" aria-label="Search">
+                <button id="submit" class="btn btn-outline-primary" type="button">Get Weather</button>
+            </form>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="https://darksky.net/forecast/40.7127,-74.0059/us12/en" target="_blank">Powered By Dark Sky</a>
+                <a class="nav-item nav-link" href="https://developer.mapquest.com/" target="_blank">MapQuest Geocoding API</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Weather Card -->
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+    <!-- Template -->
+    <div id="template" style="display: none">
+        <div class="col-xs-12 col-lg-4">              
+            <div class="weatherCard" style="background-image: url('@@imageURL@@');">
+                <button id="remove" type="button">X</button>
+                <h1 style="color: @@color0@@;">@@location@@</h1>
+                <h1 style="color: @@color1@@;">@@temperature@@&#8457</h1>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Currently: @@currently@@</li>
+                    <li class="list-group-item">High Temp: @@high@@&#8457</li>
+                    <li class="list-group-item">Low Temp: @@low@@&#8457</li>
+                    <li class="list-group-item">Wind: @@wind@@</li>
+                </ul>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" data-target="#forecast">Hide/Show Weekly Forecast</button>
+                <div id="forecast" class="collapse">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Today || @@summary0@@ <br> High: @@max0@@&#8457 <br> Low: @@low0@@&#8457 <br> Precip. Chance: @@precip0@@%</li>
+                        <li class="list-group-item">@@date1@@ || @@summary1@@ <br> High: @@max1@@&#8457 <br> Low: @@low1@@&#8457 <br> Precip. Chance: @@precip1@@%</li>
+                        <li class="list-group-item">@@date2@@ || @@summary2@@ <br> High: @@max2@@&#8457 <br> Low: @@low2@@&#8457 <br> Precip. Chance: @@precip2@@%</li>
+                        <li class="list-group-item">@@date3@@ || @@summary3@@ <br> High: @@max3@@&#8457 <br> Low: @@low3@@&#8457 <br> Precip. Chance: @@precip3@@%</li>
+                        <li class="list-group-item">@@date4@@ || @@summary4@@ <br> High: @@max4@@&#8457 <br> Low: @@low4@@&#8457 <br> Precip. Chance: @@precip4@@%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts for JQuery, popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Script to apiKeys.js -->
+    <script src="../JS/apiKeys.js"></script>
     <!-- Script to index.js -->
-    <script src="../JS/index.js"></script>
+    <script src="../JS/scripts.js"></script>
 </body>
 </html>
