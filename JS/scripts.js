@@ -115,20 +115,20 @@ function getWeatherInfo(latitude, longitude, city, region) {
             let windSpeed = data.currently.windSpeed;
             let windGust = data.currently.windGust;
             let windBearing = data.currently.windBearing;
-            let humidity = data.currently.humidity;
+            let windDirection = getWindDirection(windBearing);
             // ^ Get variables from the dark sky data.
 
-            let color = getFontColor(weatherIcon);
-            let windDirection = getWindDirection(windBearing);
-
-            templateHTML = templateHTML.replace("@@city@@", city + ", " + region);
-            templateHTML = templateHTML.replace("@@temperature@@", temperature + "&#8457");
+            for (var i = 0; i < 2; i++) {
+                templateHTML = templateHTML.replace("@@color" + i + "@@", getFontColor(weatherIcon));
+                // ^ Set color to @@values@@ of location and temperature
+            }
+            templateHTML = templateHTML.replace("@@location@@", city + ", " + region);
+            templateHTML = templateHTML.replace("@@temperature@@", Math.round(temperature));
             templateHTML = templateHTML.replace("@@imageURL@@", "../IMG/" + weatherIcon + ".jpg");
-            templateHTML = templateHTML.replace("@@currently@@", "Currently: " + currently);
-            templateHTML = templateHTML.replace("@@high@@", "High Temp: " + Math.round(tempHigh));
-            templateHTML = templateHTML.replace("@@low@@", "Low Temp: " + Math.round(tempLow));
-            templateHTML = templateHTML.replace("@@wind@@", "Wind: " + windDirection + " " + Math.round(windSpeed) + " MPH, Gust: " + Math.round(windGust) + " MPH");
-            templateHTML = templateHTML.replace("@@humidity@@", "Humidity: " + humidity);
+            templateHTML = templateHTML.replace("@@currently@@", currently);
+            templateHTML = templateHTML.replace("@@high@@", Math.round(tempHigh));
+            templateHTML = templateHTML.replace("@@low@@", Math.round(tempLow));
+            templateHTML = templateHTML.replace("@@wind@@", windDirection + " " + Math.round(windSpeed) + " MPH, Gust: " + Math.round(windGust) + " MPH");
             // ^ Replace the string "@@value@@" with the Dark sky data we pass into this function in the HTML.
 
             for (var i = 0; i < 5; i++) {
@@ -173,40 +173,52 @@ function getWeatherInfo(latitude, longitude, city, region) {
 
 function getFontColor(weatherIcon) {
     switch (weatherIcon) {
-        case "clear-day":
-            return "../IMG/clear-day.jpg";
-        case "clear-night":
-            return "../IMG/clear-night.jpg";
-        case "rain":
-            return "../IMG/rain.jpg";
-        case "snow":
-            return "../IMG/snow.jpg";
-        case "sleat":
-            return "../IMG/sleat.jpg";
-        case "wind":
-            return "../IMG/wind.jpg";
-        case "fog":
-            return "../IMG/fog.jpg";
-        case "cloudy":
-            return "../IMG/cloudy.jpg";
-        case "partly-cloudy-day":
-            return "../IMG/partly-cloudy-day.jpg";
+        case "rain": 
+        case "clear-night": 
+        case "cloudy": 
         case "partly-cloudy-night":
-            return "../IMG/partly-cloudy-night.jpg";
+            return "white";
         default:
-            return "../IMG/clear-day.jpg";
+            return "black";
     }
 }
+// ^ Set color of text location and temperature depending on background image.
 
 function getWindDirection(windBearing) {
     switch (true) {
         case (windBearing > 315 || windBearing < 45):
-            return "N";
+            if (windBearing <= 338.5) {
+                return "NW";
+            } else if (windBearing >= 22.5) {
+                return "NE";
+            } else {
+                return "N";
+            }
         case (windBearing >= 45 && windBearing <= 135):
-            return "E";
+            if (windBearing <= 68.5) {
+                return "NE";
+            } else if (windBearing >= 112.5) {
+                return "SE";
+            } else {
+                return "E";
+            }
         case (windBearing > 135 && windBearing < 225):
-            return "S";
+            if (windBearing <= 158.5) {
+                return "SE";
+            } else if (windBearing >= 202.5) {
+                return "SW";
+            } else {
+                return "S";
+            }
         case (windBearing >= 225 && windBearing <= 315):
-            return "W";
+            if (windBearing <= 248.5) {
+                return "SW";
+            } else if (windBearing >= 292.5) {
+                return "NW";
+            } else {
+                return "W";
+            }
     }
 }
+// ^ Set cardinal direction for windBearing.
+

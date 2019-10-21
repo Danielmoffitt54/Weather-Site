@@ -40,14 +40,13 @@
         <div class="col-xs-12 col-lg-4">              
             <div class="weatherCard" style="background-image: url('@@imageURL@@');">
                 <button id="remove" type="button">X</button>
-                <h1>@@city@@</h1>
-                <h1>@@temperature@@</h1>
+                <h1 style="color: @@color0@@;">@@location@@</h1>
+                <h1 style="color: @@color1@@;">@@temperature@@&#8457</h1>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@@currently@@</li>
-                    <li class="list-group-item">@@high@@&#8457</li>
-                    <li class="list-group-item">@@low@@&#8457</li>
-                    <li class="list-group-item">@@wind@@</li>
-                    <li class="list-group-item">@@humidity@@</li>
+                    <li class="list-group-item">Currently: @@currently@@</li>
+                    <li class="list-group-item">High Temp: @@high@@&#8457</li>
+                    <li class="list-group-item">Low Temp: @@low@@&#8457</li>
+                    <li class="list-group-item">Wind: @@wind@@</li>
                 </ul>
                 <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" data-target="#forecast">Hide/Show Weekly Forecast</button>
                 <div id="forecast" class="collapse">
